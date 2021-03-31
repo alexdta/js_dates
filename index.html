@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DATES</title>
+</head>
+
+<body>
+    <form>
+        <div>
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" name="startDate">
+        </div>
+        <div>
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" name="endDate">
+        </div>
+
+    </form>
+
+    <script>
+
+        var startDate = document.getElementById("startDate");
+        startDate.addEventListener("change", NextDate);
+
+        var endDate = document.getElementById("endDate");
+        endDate.addEventListener("change", PrevDate);
+
+        function NextDate() {
+            let startDate = document.getElementById("startDate");
+            let startDate_Val = Date.parse(startDate.value);
+
+            let endDate = document.getElementById("endDate");
+            let endDate_Val = Date.parse(endDate.value);
+
+            if (!endDate_Val) {
+                endDate.valueAsDate = addDays(startDate_Val, 1);
+            }
+            else {
+                if ((endDate_Val > startDate_Val) === false) {
+                    endDate.valueAsDate = addDays(endDate_Val, 1);
+                    // endDate.value = addDays(endDate_Val, 1).toISOString().substring(0, 10);
+                }
+            }
+        }
+
+        function PrevDate() {
+            let startDate = document.getElementById("startDate");
+            let startDate_Val = Date.parse(startDate.value);
+
+            let endDate = document.getElementById("endDate");
+            let endDate_Val = Date.parse(endDate.value);
+
+            if (!startDate_Val) {
+                startDate.valueAsDate = addDays(endDate_Val, -1);
+            }
+            else {
+                if ((endDate_Val > startDate_Val) === false) {
+                    startDate.valueAsDate = addDays(endDate_Val, -1);
+                }
+            }
+        }
+
+        function addDays(p_date, p_days) {
+
+            // 1 day in milliseconds
+            let dayMill = 86400000;
+
+            let newDate = new Date(p_date + (dayMill * p_days));
+
+            return newDate;
+        }
+    </script>
+</body>
+
+</html>
